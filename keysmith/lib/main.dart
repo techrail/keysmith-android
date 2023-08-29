@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:keysmith/src/core/common/settings/settings_controller.dart';
 import 'package:keysmith/src/core/common/settings/settings_service.dart';
 
@@ -16,5 +17,5 @@ void main() async {
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
-  runApp(MyApp(settingsController: settingsController));
+  runApp(ProviderScope(child: MyApp(settingsController: settingsController)));
 }
