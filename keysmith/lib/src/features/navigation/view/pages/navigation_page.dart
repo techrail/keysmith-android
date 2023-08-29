@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:keysmith/src/features/navigation/view/pages/navigation_bar.dart';
+import 'package:keysmith/src/features/navigation/view/components/navigation_bar_widget.dart';
 import 'package:keysmith/src/features/navigation/view/state/navigation_provider.dart';
 
 class NavigationPage extends StatelessWidget {
