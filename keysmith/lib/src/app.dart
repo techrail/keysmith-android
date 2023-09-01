@@ -65,6 +65,9 @@ class MyApp extends StatelessWidget {
           //and it will be converted into url entity for further processing
           routeInformationParser: BeamerParser(),
 
+          backButtonDispatcher:
+              BeamerBackButtonDispatcher(delegate: routeDelegate),
+
           //this manages the state of the app's routes and it will render the UI as per the
           //the data inside the url entity
           routerDelegate: routeDelegate,
