@@ -1,7 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/widgets.dart';
 
-import 'package:keysmith/src/features/home/pages/home_page.dart';
+import 'package:keysmith/src/features/home/presentation/pages/home_page.dart';
 
 class HomeLocation extends BeamLocation<BeamState> {
   @override

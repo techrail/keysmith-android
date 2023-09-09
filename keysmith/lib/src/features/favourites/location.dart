@@ -1,6 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/widgets.dart';
-import 'package:keysmith/src/features/favourites/pages/favourites_page.dart';
+import 'package:keysmith/src/features/favourites/presentation/pages/favourites_page.dart';
 
 class FavouriteLocation extends BeamLocation<BeamState> {
   @override

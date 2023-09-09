@@ -1,10 +1,10 @@
 import 'package:beamer/beamer.dart';
-import 'package:keysmith/src/features/add/components/location.dart';
-import 'package:keysmith/src/features/add/pages/add_page.dart';
-import 'package:keysmith/src/features/favourites/components/location.dart';
-import 'package:keysmith/src/features/favourites/pages/favourites_page.dart';
-import 'package:keysmith/src/features/home/components/location.dart';
-import 'package:keysmith/src/features/home/pages/home_page.dart';
+import 'package:keysmith/src/features/add/location.dart';
+import 'package:keysmith/src/features/add/presentation/pages/add_page.dart';
+import 'package:keysmith/src/features/favourites/location.dart';
+import 'package:keysmith/src/features/favourites/presentation/pages/favourites_page.dart';
+import 'package:keysmith/src/features/home/location.dart';
+import 'package:keysmith/src/features/home/presentation/pages/home_page.dart';
 import 'package:keysmith/src/features/settings/components/location.dart';
 import 'package:keysmith/src/features/settings/pages/settings_page.dart';
 

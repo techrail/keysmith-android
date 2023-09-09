@@ -1,6 +1,6 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/widgets.dart';
-import 'package:keysmith/src/features/add/pages/add_page.dart';
+import 'package:keysmith/src/features/add/presentation/pages/add_page.dart';
 
 class AddLocation extends BeamLocation<BeamState> {
   @override
