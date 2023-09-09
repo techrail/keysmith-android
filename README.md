@@ -37,4 +37,4 @@ Keysmith for Android is made with Flutter and makes use material 3 UI.
 ### How to contribute?
 Whether or not you have worked with Flutter, you can always find a way to contribute. From testing to documentation and creating better readme!
 
-Checkout our contribution guide [here].(#addlinktocontributionguideongithub).
+Checkout our contribution guide [here](./CONTRIBUTING.md).
