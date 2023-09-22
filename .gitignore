@@ -31,3 +31,7 @@ google-services.json
 
 # Android Profiling
 *.hprof
+keysmith/pubspec.lock
+keysmith/ios/Flutter/AppFrameworkInfo.plist
+.gitignore
+keysmith/ios/Runner.xcodeproj/project.pbxproj
