@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keysmith/src/features/home/presentation/views/home_view.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = "/home";
@@ -7,6 +8,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text("Home"));
+    return const HomeView();
   }
 }
