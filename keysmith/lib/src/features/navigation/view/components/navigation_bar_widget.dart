@@ -1,16 +1,19 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:keysmith/src/features/navigation/view/state/navigation_provider.dart';
 
-class NavigationBarWidget extends ConsumerWidget {
-  const NavigationBarWidget({super.key});
+class NavigationBarWidget extends StatelessWidget {
+  final int activeIndex;
+  const NavigationBarWidget({
+    required this.activeIndex,
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return NavigationBar(
-      selectedIndex: ref.watch(navigationProvider),
+      selectedIndex: activeIndex,
       onDestinationSelected: (index) =>
-          ref.read(navigationProvider.notifier).state = index,
+          AutoTabsRouter.of(context).setActiveIndex(index),
       destinations: const [
         NavigationDestination(
           icon: Icon(Icons.home),

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:keysmith/src/core/common/services/service_locator/service_locator.dart';
 import 'package:keysmith/src/core/common/settings/settings_controller.dart';
@@ -6,6 +7,7 @@ import 'package:keysmith/src/core/common/settings/settings_controller.dart';
 ///
 /// When a user changes a setting, the SettingsController is updated and
 /// Widgets that listen to the SettingsController are rebuilt.
+@RoutePage()
 class SettingsPage extends StatelessWidget {
   final SettingsController _controller;
 

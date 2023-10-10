@@ -1,8 +1,7 @@
-import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:keysmith/src/core/common/routes/route_delegate.dart';
+import 'package:keysmith/src/core/common/routes/app_router.dart';
 import 'package:keysmith/src/core/common/services/service_locator/service_locator.dart';
 import 'package:keysmith/src/core/common/settings/settings_controller.dart';
 
@@ -53,20 +52,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(),
           darkTheme: ThemeData.dark(),
           themeMode: sl<SettingsController>().themeMode,
-
-          // Define a function to handle named routes in order to support
-          // Flutter web url navigation and deep linking.
-
-          //this will help parse the url's for data in it
-          //and it will be converted into url entity for further processing
-          routeInformationParser: BeamerParser(),
-
-          backButtonDispatcher:
-              BeamerBackButtonDispatcher(delegate: routeDelegate),
-
-          //this manages the state of the app's routes and it will render the UI as per the
-          //the data inside the url entity
-          routerDelegate: routeDelegate,
+          routerConfig: sl<AppRouter>().config(),
         );
       },
     );

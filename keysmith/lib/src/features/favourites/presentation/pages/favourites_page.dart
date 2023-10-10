@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+@RoutePage()
 class FavouritesPage extends StatelessWidget {
   static const routeName = "/favourite";
   const FavouritesPage({super.key});
