@@ -3,16 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:keysmith/src/core/common/routes/route_delegate.dart';
+import 'package:keysmith/src/core/common/services/service_locator/service_locator.dart';
 import 'package:keysmith/src/core/common/settings/settings_controller.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
-  const MyApp({
-    Key? key,
-    required this.settingsController,
-  }) : super(key: key);
-
-  final SettingsController settingsController;
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +17,7 @@ class MyApp extends StatelessWidget {
     // The AnimatedBuilder Widget listens to the SettingsController for changes.
     // Whenever the user updates their settings, the MaterialApp is rebuilt.
     return AnimatedBuilder(
-      animation: settingsController,
+      animation: sl<SettingsController>(),
       builder: (BuildContext context, Widget? child) {
         return MaterialApp.router(
           // Providing a restorationScopeId allows the Navigator built by the
@@ -56,7 +52,7 @@ class MyApp extends StatelessWidget {
           // SettingsController to display the correct theme.
           theme: ThemeData(),
           darkTheme: ThemeData.dark(),
-          themeMode: settingsController.themeMode,
+          themeMode: sl<SettingsController>().themeMode,
 
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.

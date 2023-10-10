@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keysmith/src/core/common/services/service_locator/service_locator.dart';
 import 'package:keysmith/src/core/common/settings/settings_controller.dart';
 
 /// Displays the various settings that can be customized by the user.
@@ -6,12 +7,12 @@ import 'package:keysmith/src/core/common/settings/settings_controller.dart';
 /// When a user changes a setting, the SettingsController is updated and
 /// Widgets that listen to the SettingsController are rebuilt.
 class SettingsPage extends StatelessWidget {
-  final SettingsController controller;
+  final SettingsController _controller;
 
-  const SettingsPage({
-    Key? key,
-    required this.controller,
-  }) : super(key: key);
+  SettingsPage({
+    super.key,
+    SettingsController? controller,
+  }) : _controller = controller ?? sl<SettingsController>();
 
   static const routeName = '/settings';
 
@@ -29,9 +30,9 @@ class SettingsPage extends StatelessWidget {
         // SettingsController is updated, which rebuilds the MaterialApp.
         child: DropdownButton<ThemeMode>(
           // Read the selected themeMode from the controller
-          value: controller.themeMode,
+          value: _controller.themeMode,
           // Call the updateThemeMode method any time the user selects a theme.
-          onChanged: controller.updateThemeMode,
+          onChanged: _controller.updateThemeMode,
           items: const [
             DropdownMenuItem(
               value: ThemeMode.system,
