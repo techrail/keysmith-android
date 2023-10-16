@@ -6,6 +6,7 @@ import 'package:keysmith/src/core/common/settings/settings_controller.dart';
 import 'package:keysmith/src/features/add/presentation/pages/add_page.dart';
 import 'package:keysmith/src/features/favourites/presentation/pages/favourites_page.dart';
 import 'package:keysmith/src/features/home/presentation/pages/home_page.dart';
+import 'package:keysmith/src/features/home/presentation/views/secrets_list_view.dart';
 import 'package:keysmith/src/features/keysmith/presentation/pages/keysmith_page.dart';
 import 'package:keysmith/src/features/navigation/view/pages/navigation_page.dart';
 import 'package:keysmith/src/features/settings/pages/settings_page.dart';
@@ -21,9 +22,18 @@ class AppRouter extends _$AppRouter {
           page: NavigationRoute.page,
           initial: true,
           children: [
-            AutoRoute(page: HomeRoute.page),
+            AutoRoute(
+              page: HomeRoute.page,
+              children: [
+                AutoRoute(
+                  page: SecretsListRoute.page,
+                  initial: true,
+                ),
+                AutoRoute(page: AddRoute.page),
+              ],
+            ),
             AutoRoute(page: FavouritesRoute.page),
-            AutoRoute(page: AddRoute.page),
+            // AutoRoute(page: AddRoute.page),
             AutoRoute(page: KeysmithRoute.page),
             AutoRoute(page: SettingsRoute.page),
           ],
