@@ -9,6 +9,7 @@ Widget _buildCloseButton({
     curve: const Interval(0.25, 1.0, curve: Curves.easeOut),
     duration: const Duration(milliseconds: 250),
     child: FloatingActionButton(
+      heroTag: null,
       backgroundColor: Colors.red.shade400,
       onPressed: onPressed,
       child: const Icon(Icons.close, color: Colors.white),

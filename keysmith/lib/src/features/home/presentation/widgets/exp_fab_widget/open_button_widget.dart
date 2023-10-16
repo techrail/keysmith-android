@@ -20,6 +20,7 @@ Widget _buildOpenButton({
         curve: const Interval(0.25, 1.0, curve: Curves.easeOut),
         duration: const Duration(milliseconds: 250),
         child: FloatingActionButton(
+          heroTag: null,
           onPressed: onPressed,
           child: const Icon(Icons.create),
         ),
