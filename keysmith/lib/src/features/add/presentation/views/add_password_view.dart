@@ -8,7 +8,9 @@ class AddPasswordView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: const Text('New Password'),
+        ),
         body: const Padding(
           padding: EdgeInsets.fromLTRB(8, 10, 8, 0),
           child: SingleChildScrollView(
