@@ -13,7 +13,6 @@ class NavigationPage extends StatelessWidget {
       routes: [
         const HomeRoute(),
         const FavouritesRoute(),
-        const AddRoute(),
         const KeysmithRoute(),
         SettingsRoute(),
       ],

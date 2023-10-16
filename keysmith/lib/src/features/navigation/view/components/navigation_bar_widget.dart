@@ -26,11 +26,6 @@ class NavigationBarWidget extends StatelessWidget {
           label: "Favourites",
         ),
         NavigationDestination(
-          icon: Icon(Icons.add),
-          selectedIcon: Icon(Icons.add),
-          label: "Add",
-        ),
-        NavigationDestination(
           icon: Icon(Icons.lock_open_outlined),
           selectedIcon: Icon(Icons.lock),
           label: "KeySmith",
