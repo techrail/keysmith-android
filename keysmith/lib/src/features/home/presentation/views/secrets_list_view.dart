@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:keysmith/src/core/common/routes/app_router.dart';
 import 'package:keysmith/src/features/home/presentation/widgets/action_button_widget.dart';
 import 'package:keysmith/src/features/home/presentation/widgets/exp_fab_widget/exp_floating_button_widget.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+@RoutePage()
+class SecretsListView extends StatelessWidget {
+  const SecretsListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +15,8 @@ class HomeView extends StatelessWidget {
       floatingActionButton: ExpFloatingButtonWidget(
         children: [
           ActionButton(
-            onPressed: () => print("action 1 pressed"),
+            // onPressed: () => print("action 1 pressed"),
+            onPressed: () => context.router.push(const AddRoute()),
             icon: const Icon(Icons.key),
           ),
           ActionButton(
