@@ -24,6 +24,9 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
   ///
   final String website;
 
+  ///Favicon of the website.
+  final String siteImageUrl;
+
   ///Wether the email entered is valid.
   ///
   final bool validEmail;
@@ -47,6 +50,7 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
     this.email = "",
     this.password = "",
     this.website = "",
+    this.siteImageUrl = "",
     this.validEmail = false,
     this.validUrl = false,
     this.strength = 0,
@@ -61,6 +65,7 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
       email,
       password,
       website,
+      siteImageUrl,
       validEmail,
       validUrl,
       strength,
@@ -75,6 +80,7 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
     String? email,
     String? password,
     String? website,
+    String? siteImageUrl,
     bool? validEmail,
     bool? validUrl,
     int? strength,
@@ -86,6 +92,7 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
       email: email ?? this.email,
       password: password ?? this.password,
       website: website ?? this.website,
+      siteImageUrl: siteImageUrl ?? this.siteImageUrl,
       validEmail: validEmail ?? this.validEmail,
       validUrl: validUrl ?? this.validUrl,
       strength: strength ?? this.strength,
@@ -103,6 +110,7 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
         email: email,
         password: password,
         website: website,
+        siteImageUrl: siteImageUrl,
         validEmail: validEmail,
         validUrl: validUrl,
         strength: strength,
