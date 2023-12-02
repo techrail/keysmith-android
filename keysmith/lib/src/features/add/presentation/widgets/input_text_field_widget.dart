@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class InputTextFieldWidget extends StatelessWidget {
   final IconData leadingIcon;
-
+  final TextEditingController? controller;
   final String label;
 
   ///Creates a textfield with leading icon.
@@ -15,6 +15,7 @@ class InputTextFieldWidget extends StatelessWidget {
     super.key,
     required this.leadingIcon,
     required this.label,
+    this.controller,
   });
 
   @override
@@ -25,6 +26,7 @@ class InputTextFieldWidget extends StatelessWidget {
         const SizedBox(width: 20),
         Expanded(
           child: TextField(
+            controller: controller,
             decoration: InputDecoration(labelText: label),
           ),
         )
