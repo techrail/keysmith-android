@@ -31,16 +31,17 @@ class FakeAddPasswordCubit extends AddPasswordCubit {
   Map<String, dynamic>? toJson(AddPasswordState state) => {};
 
   @override
-  void updateEmailString() => debugPrint('updateEmail called.');
+  void updateEmailString(String email) => debugPrint('updateEmail called.');
 
   @override
-  void updatePasswordString() => debugPrint('updatePassword called.');
+  void updatePasswordString(String password) =>
+      debugPrint('updatePassword called.');
 
   @override
-  void updateTitleString() => debugPrint('updateTitle called.');
+  void updateTitleString(String title) => debugPrint('updateTitle called.');
 
   @override
-  void updateWebsiteUrl() => debugPrint('updateUrl called.');
+  void updateWebsiteUrl(String website) => debugPrint('updateUrl called.');
 }
 
 void main() {

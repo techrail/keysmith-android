@@ -4,13 +4,13 @@ import 'package:keysmith/src/features/add/presentation/states/add_password_state
 abstract class AddPasswordCubit extends HydratedCubit<AddPasswordState> {
   AddPasswordCubit() : super(const AddPasswordState());
 
-  void updateTitleString();
+  void updateTitleString(String title);
 
-  void updateEmailString();
+  void updateEmailString(String email);
 
-  void updatePasswordString();
+  void updatePasswordString(String password);
 
-  void updateWebsiteUrl();
+  void updateWebsiteUrl(String website);
 
   Future<void> saveSecret();
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class InputTextFieldWidget extends StatelessWidget {
   final IconData leadingIcon;
+  final String initialValue;
+  void Function(String value)? onChanged;
   final TextEditingController? controller;
   final String label;
 
@@ -11,10 +13,12 @@ class InputTextFieldWidget extends StatelessWidget {
   ///the start of the textfield.
   ///* [label] : The text to be displayed when no data
   ///in present in the textfield.
-  const InputTextFieldWidget({
+  InputTextFieldWidget({
     super.key,
     required this.leadingIcon,
     required this.label,
+    required this.initialValue,
+    this.onChanged,
     this.controller,
   });
 
@@ -25,7 +29,9 @@ class InputTextFieldWidget extends StatelessWidget {
         Icon(leadingIcon),
         const SizedBox(width: 20),
         Expanded(
-          child: TextField(
+          child: TextFormField(
+            onChanged: onChanged,
+            initialValue: initialValue,
             controller: controller,
             decoration: InputDecoration(labelText: label),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keysmith/src/core/common/services/service_locator/service_locator.dart';
 import 'package:keysmith/src/features/add/presentation/states/add_password_cubit.dart';
 import 'package:keysmith/src/features/add/presentation/states/add_password_state.dart';
 import 'package:keysmith/src/features/add/presentation/widgets/input_text_field_widget.dart';
@@ -47,13 +48,14 @@ class AddPasswordView extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                            child: TextField(
-                          controller: TextEditingController(
-                            //TODO: this text should only update once, at initial load.
-                            text: state.title,
+                          child: TextFormField(
+                            initialValue: state.title,
+                            onChanged: (value) =>
+                                sl<AddPasswordCubit>().updateTitleString(value),
+                            decoration:
+                                const InputDecoration(hintText: "Title"),
                           ),
-                          decoration: const InputDecoration(hintText: "Title"),
-                        )),
+                        ),
                         const SizedBox(width: 8),
 
                         ///TODO: replace this with cached image.
@@ -68,16 +70,20 @@ class AddPasswordView extends StatelessWidget {
                     ),
                     const SizedBox(height: 50),
                     InputTextFieldWidget(
+                      initialValue: state.email,
                       leadingIcon: Icons.person,
-                      label: "Login",
-                      controller: TextEditingController(),
+                      label: "Email",
+                      onChanged: (value) =>
+                          sl<AddPasswordCubit>().updateEmailString(value),
                     ),
                     const SizedBox(height: 50),
                     Column(
                       children: [
                         InputTextFieldWidget(
+                          initialValue: state.password,
                           leadingIcon: Icons.key_outlined,
-                          controller: TextEditingController(),
+                          onChanged: (value) => sl<AddPasswordCubit>()
+                              .updatePasswordString(value),
                           label: "Password",
                         ),
                         const Padding(
@@ -89,9 +95,11 @@ class AddPasswordView extends StatelessWidget {
                     const SizedBox(height: 50),
                     //TODO: validate website string
                     InputTextFieldWidget(
+                      initialValue: state.website,
                       leadingIcon: Icons.language_outlined,
                       label: "Website",
-                      controller: TextEditingController(),
+                      onChanged: (value) =>
+                          sl<AddPasswordCubit>().updateWebsiteUrl(value),
                     ),
                   ],
                 ),
