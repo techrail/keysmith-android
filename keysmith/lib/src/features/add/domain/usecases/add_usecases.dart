@@ -1,8 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:keysmith/src/core/utils/models/no_value.dart';
 import 'package:keysmith/src/core/utils/usecase/usecase.dart';
 
-abstract class AddPasswordUseCase extends Usecase<void, AddPasswordParams> {}
+///Create a [PasswordSecretEntity] with given information to create a password entry.
+///
+abstract class AddPasswordUsecase extends Usecase<NoValue, AddPasswordParams> {}
 
+///Parameters used to call use-case to create and add a new password entity.
 class AddPasswordParams extends Equatable {
   final String? title;
   final String email;
@@ -22,5 +26,37 @@ class AddPasswordParams extends Equatable {
         email,
         password,
         website,
+      ];
+}
+
+///Generates a password with given parameters.
+///
+abstract class GeneratePasswordUsecase
+    extends Usecase<String, GeneratePasswordParams> {}
+
+///Parameters used to call use-case to generate a new password.
+///
+class GeneratePasswordParams extends Equatable {
+  final int length;
+  final bool includeUpperCase;
+  final bool includeLowerCase;
+  final bool includeNumeric;
+  final bool includeSpecial;
+
+  const GeneratePasswordParams({
+    required this.length,
+    required this.includeUpperCase,
+    required this.includeLowerCase,
+    required this.includeNumeric,
+    required this.includeSpecial,
+  });
+
+  @override
+  List<Object?> get props => [
+        length,
+        includeLowerCase,
+        includeUpperCase,
+        includeNumeric,
+        includeSpecial,
       ];
 }
