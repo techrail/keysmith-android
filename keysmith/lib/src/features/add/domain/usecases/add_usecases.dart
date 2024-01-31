@@ -60,3 +60,18 @@ class GeneratePasswordParams extends Equatable {
         includeSpecial,
       ];
 }
+
+///Validates strength of a given password.
+///
+abstract class PasswordStrengthUsecase
+    extends Usecase<double, PasswordStrengthParams> {}
+
+///Parameters to validate strength of a password.
+class PasswordStrengthParams extends Equatable {
+  final String password;
+
+  const PasswordStrengthParams({required this.password});
+
+  @override
+  List<Object?> get props => [password];
+}
