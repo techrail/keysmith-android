@@ -38,3 +38,6 @@ keysmith/ios/Runner.xcodeproj/project.pbxproj
 
 # Flutter
 keysmith/pubspec.lock
+
+#Misc
+/docs/
