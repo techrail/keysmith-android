@@ -64,7 +64,7 @@ class GeneratePasswordParams extends Equatable {
 ///Validates strength of a given password.
 ///
 abstract class PasswordStrengthUsecase
-    extends Usecase<double, PasswordStrengthParams> {}
+    extends NoFailureUseCase<double, PasswordStrengthParams> {}
 
 ///Parameters to validate strength of a password.
 class PasswordStrengthParams extends Equatable {

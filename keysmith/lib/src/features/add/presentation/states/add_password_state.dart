@@ -6,7 +6,7 @@ import 'package:keysmith/src/features/add/presentation/states/errors.dart';
 class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
   ///Type of state the view is in.
   ///
-  final AppState status;
+  final AppState appState;
 
   ///Text for the title field of the form.
   ///
@@ -37,7 +37,7 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
   ///Value for the strength display.
   ///Defaults to 0. Valid range is between 1 to 10.
   ///
-  final int strength;
+  final double strength;
 
   ///Errors to be informed to the user.
   ///
@@ -45,7 +45,7 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
   final Map<AddPasswordError, String> errors;
 
   const AddPasswordState({
-    this.status = AppState.initial,
+    this.appState = AppState.initial,
     this.title = "",
     this.email = "",
     this.password = "",
@@ -60,7 +60,7 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
   @override
   List<Object> get props {
     return [
-      status,
+      appState,
       title,
       email,
       password,
@@ -75,7 +75,7 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
 
   @override
   AddPasswordState copyWith({
-    AppState? status,
+    AppState? appState,
     String? title,
     String? email,
     String? password,
@@ -83,11 +83,11 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
     String? siteImageUrl,
     bool? validEmail,
     bool? validUrl,
-    int? strength,
+    double? strength,
     Map<AddPasswordError, String>? errors,
   }) {
     return AddPasswordState(
-      status: status ?? this.status,
+      appState: appState ?? this.appState,
       title: title ?? this.title,
       email: email ?? this.email,
       password: password ?? this.password,
@@ -105,7 +105,7 @@ class AddPasswordState extends Equatable implements Copyable<AddPasswordState> {
 
   @override
   AddPasswordState copy() => AddPasswordState(
-        status: status,
+        appState: appState,
         title: title,
         email: email,
         password: password,

@@ -9,7 +9,7 @@ import 'package:keysmith/src/features/add/presentation/widgets/input_text_field_
 import 'package:keysmith/src/features/add/presentation/widgets/password_strength_indicator_widget.dart';
 
 //TODO: add logic
-//1. validates password's strength, can be a range from 1 to 10 represented as a coloured bar. state will provide the stregth represented in int.
+//1. validates password's strength, can be a range from 1 to 10 represented as a coloured bar. state will provide the stregth represented in int. - done
 
 //2. validates website url syntax. provides error if wrong. Ignores validation if the field is empty.
 //3. If a web address is proivded, the avatar is updated with fevicon of the given website.
@@ -119,8 +119,20 @@ class AddPasswordView extends HookWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(45, 20, 0, 0),
-                          child: PasswordStrengthIndicatorWidget(
-                            animationController: indicatorAnimationController,
+                          child:
+                              BlocBuilder<AddPasswordCubit, AddPasswordState>(
+                            buildWhen: (previous, current) =>
+                                previous.strength != current.strength,
+                            builder: (context, state) {
+                              indicatorAnimationController.animateTo(
+                                state.strength,
+                                duration: const Duration(milliseconds: 250),
+                              );
+                              return PasswordStrengthIndicatorWidget(
+                                animationController:
+                                    indicatorAnimationController,
+                              );
+                            },
                           ),
                         ),
                       ],

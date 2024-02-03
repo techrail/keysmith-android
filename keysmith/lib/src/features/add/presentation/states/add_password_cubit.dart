@@ -12,5 +12,7 @@ abstract class AddPasswordCubit extends HydratedCubit<AddPasswordState> {
 
   void updateWebsiteUrl(String website);
 
+  Future<void> reset();
+
   Future<void> saveSecret();
 }

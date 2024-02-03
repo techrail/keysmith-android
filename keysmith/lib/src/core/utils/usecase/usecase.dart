@@ -6,6 +6,12 @@ abstract class Usecase<Type, Params> {
   Future<Either<Failure, Type>> call(Params params);
 }
 
+///Use [NoFailureUseCase] only when the result is not expected to throw any
+///errors.
+abstract class NoFailureUseCase<Type, Params> {
+  Type call(Params params);
+}
+
 /// this class is used for method with no params
 class NoParams extends Equatable {
   @override

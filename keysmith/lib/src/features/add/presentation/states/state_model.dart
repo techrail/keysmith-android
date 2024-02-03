@@ -6,7 +6,7 @@ import 'package:keysmith/src/features/add/presentation/states/errors.dart';
 
 class AddPasswordStateModel extends AddPasswordState {
   const AddPasswordStateModel({
-    required super.status,
+    required super.appState,
     required super.title,
     required super.email,
     required super.password,
@@ -20,7 +20,7 @@ class AddPasswordStateModel extends AddPasswordState {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'status': status.toString(),
+      'appState': appState.toString(),
       'title': title,
       'email': email,
       'password': password,
@@ -36,7 +36,8 @@ class AddPasswordStateModel extends AddPasswordState {
 
   factory AddPasswordStateModel.fromMap(Map<String, dynamic> map) {
     return AddPasswordStateModel(
-      status: AppState.getAppStateFromString(map['status']) ?? AppState.initial,
+      appState:
+          AppState.getAppStateFromString(map['appState']) ?? AppState.initial,
       title: map['title'] as String,
       email: map['email'] as String,
       password: map['password'] as String,
@@ -44,7 +45,7 @@ class AddPasswordStateModel extends AddPasswordState {
       siteImageUrl: map['siteImageUrl'] as String,
       validEmail: map['validEmail'] as bool,
       validUrl: map['validUrl'] as bool,
-      strength: map['strength'] as int,
+      strength: map['strength'] as double,
       errors: (map['errors'] as Map).map((key, value) => MapEntry(
           AddPasswordError.getAddPasswordErrorFromString(key) ??
               AddPasswordError.other,
