@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:keysmith/src/core/common/services/service_locator/service_locator.dart';
+import 'package:keysmith/src/core/utils/state/app_state.dart';
 import 'package:keysmith/src/features/add/presentation/states/add_password_cubit.dart';
 import 'package:keysmith/src/features/add/presentation/states/add_password_state.dart';
 import 'package:keysmith/src/features/add/presentation/widgets/input_text_field_widget.dart';
@@ -19,12 +21,16 @@ import 'package:keysmith/src/features/add/presentation/widgets/password_strength
 //- 'On save' errors.
 //- any other global error.
 
-class AddPasswordView extends StatelessWidget {
+class AddPasswordView extends HookWidget {
   const AddPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    //TODO: navigate to secrets list view once the data is successfully saved.
+    final titleFieldController = TextEditingController();
+    final emailFieldController = TextEditingController();
+    final passwordFieldController = TextEditingController();
+    final websiteFieldController = TextEditingController();
+    final indicatorAnimationController = useAnimationController();
     return Scaffold(
         appBar: AppBar(
           title: const Text('New Password'),
@@ -32,13 +38,35 @@ class AddPasswordView extends StatelessWidget {
             IconButton(
               onPressed: () {
                 debugPrint("done pressed.");
-                //TODO: save all the data.
+
+                BlocProvider.of<AddPasswordCubit>(context).saveSecret();
               },
               icon: const Icon(Icons.save),
             )
           ],
         ),
-        body: BlocBuilder<AddPasswordCubit, AddPasswordState>(
+        body: BlocConsumer<AddPasswordCubit, AddPasswordState>(
+          listener: (context, state) {
+            switch (state.appState) {
+              case AppState.initial:
+                // TODO: Handle this case.
+                break;
+              case AppState.loading:
+                // TODO: Handle this case.
+                break;
+              case AppState.success:
+                BlocProvider.of<AddPasswordCubit>(context).reset();
+                titleFieldController.clear();
+                emailFieldController.clear();
+                passwordFieldController.clear();
+                websiteFieldController.clear();
+                //TODO: navigate to secrets list view once the data is successfully saved.
+                break;
+              case AppState.error:
+                // TODO: Handle this case.
+                break;
+            }
+          },
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
@@ -49,7 +77,8 @@ class AddPasswordView extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
-                            initialValue: state.title,
+                            controller: titleFieldController
+                              ..text = state.title,
                             onChanged: (value) =>
                                 sl<AddPasswordCubit>().updateTitleString(value),
                             decoration:
@@ -69,8 +98,9 @@ class AddPasswordView extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 50),
+                    //TODO: validate
                     InputTextFieldWidget(
-                      initialValue: state.email,
+                      controller: emailFieldController..text = state.email,
                       leadingIcon: Icons.person,
                       label: "Email",
                       onChanged: (value) =>
@@ -80,22 +110,25 @@ class AddPasswordView extends StatelessWidget {
                     Column(
                       children: [
                         InputTextFieldWidget(
-                          initialValue: state.password,
+                          controller: passwordFieldController
+                            ..text = state.password,
                           leadingIcon: Icons.key_outlined,
                           onChanged: (value) => sl<AddPasswordCubit>()
                               .updatePasswordString(value),
                           label: "Password",
                         ),
-                        const Padding(
-                          padding: EdgeInsets.fromLTRB(45, 20, 0, 0),
-                          child: PasswordStrengthIndicatorWidget(progress: 0.5),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(45, 20, 0, 0),
+                          child: PasswordStrengthIndicatorWidget(
+                            animationController: indicatorAnimationController,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 50),
                     //TODO: validate website string
                     InputTextFieldWidget(
-                      initialValue: state.website,
+                      controller: websiteFieldController..text = state.website,
                       leadingIcon: Icons.language_outlined,
                       label: "Website",
                       onChanged: (value) =>
