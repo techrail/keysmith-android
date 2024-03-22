@@ -12,8 +12,10 @@ class AddPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<AddPasswordCubit>(),
+    //Bloc is not closed automatically, lookout for any bugs.
+    //might have to dispose the bloc once app is terminated.
+    return BlocProvider.value(
+      value: sl<AddPasswordCubit>(),
       child: const AddPasswordView(),
     );
   }
