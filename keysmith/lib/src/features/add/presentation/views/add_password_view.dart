@@ -6,6 +6,7 @@ import 'package:keysmith/src/core/utils/state/app_state.dart';
 import 'package:keysmith/src/features/add/presentation/states/add_password_cubit.dart';
 import 'package:keysmith/src/features/add/presentation/states/add_password_state.dart';
 import 'package:keysmith/src/features/add/presentation/widgets/input_text_field_widget.dart';
+import 'package:keysmith/src/features/add/presentation/widgets/password_field_widget.dart';
 import 'package:keysmith/src/features/add/presentation/widgets/password_strength_indicator_widget.dart';
 
 //TODO: add logic
@@ -70,6 +71,7 @@ class AddPasswordView extends HookWidget {
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
+              //does not work: adding a fixed width to scroll view
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -108,14 +110,14 @@ class AddPasswordView extends HookWidget {
                     ),
                     const SizedBox(height: 50),
                     Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        InputTextFieldWidget(
+                        PasswordFieldWidget(
                           controller: passwordFieldController
                             ..text = state.password,
-                          leadingIcon: Icons.key_outlined,
                           onChanged: (value) => sl<AddPasswordCubit>()
                               .updatePasswordString(value),
-                          label: "Password",
+                          onCriteriaChanged: (criteria) {},
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(45, 20, 0, 0),
