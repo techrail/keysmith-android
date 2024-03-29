@@ -2,23 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:keysmith/src/core/common/services/service_locator/service_locator.dart';
+import 'package:keysmith/src/core/common/widgets/keysmith/keysmith_widget.dart';
 import 'package:keysmith/src/core/utils/state/app_state.dart';
 import 'package:keysmith/src/features/add/presentation/states/add_password_cubit.dart';
 import 'package:keysmith/src/features/add/presentation/states/add_password_state.dart';
 import 'package:keysmith/src/features/add/presentation/widgets/input_text_field_widget.dart';
-import 'package:keysmith/src/features/add/presentation/widgets/password_field_widget.dart';
 import 'package:keysmith/src/features/add/presentation/widgets/password_strength_indicator_widget.dart';
 
-//TODO: add logic
-//1. validates password's strength, can be a range from 1 to 10 represented as a coloured bar. state will provide the stregth represented in int. - done
-
-//2. validates website url syntax. provides error if wrong. Ignores validation if the field is empty.
-//3. If a web address is proivded, the avatar is updated with fevicon of the given website.
+//2. validates website url syntax. Ignores validation if the field is empty.
+//3. If a web address is provided, the avatar is updated with fevicon of the given website.
 //TODO: 4. Add a done button and tapping it will persist the entered data.
 
 //errors to handle:
-//- Password validation
-//- Web address validation
 //- 'On save' errors.
 //- any other global error.
 
@@ -68,10 +63,9 @@ class AddPasswordView extends HookWidget {
                 break;
             }
           },
-          builder: (context, state) {
+          builder: (_, state) {
             return Padding(
               padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
-              //does not work: adding a fixed width to scroll view
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -112,12 +106,48 @@ class AddPasswordView extends HookWidget {
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        PasswordFieldWidget(
-                          controller: passwordFieldController
-                            ..text = state.password,
-                          onChanged: (value) => sl<AddPasswordCubit>()
-                              .updatePasswordString(value),
-                          onCriteriaChanged: (criteria) {},
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: InputTextFieldWidget(
+                                controller: passwordFieldController
+                                  ..text = state.password,
+                                leadingIcon: Icons.key_outlined,
+                                onChanged: (value) => sl<AddPasswordCubit>()
+                                    .updatePasswordString(value),
+                                label: "Password",
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            SizedBox(
+                              width: 50,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  alignment: Alignment.center,
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(8))),
+                                ),
+                                child: const Icon(Icons.key_rounded),
+                                onPressed: () async {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (context) => _showKeysmith(
+                                      context,
+                                      (password) => sl
+                                          .get<AddPasswordCubit>()
+                                          .updatePasswordString(password),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                         Padding(
                           padding: const EdgeInsets.fromLTRB(45, 20, 0, 0),
@@ -154,5 +184,31 @@ class AddPasswordView extends HookWidget {
             );
           },
         ));
+  }
+
+  AlertDialog _showKeysmith(
+    BuildContext context,
+    void Function(String password) onPasswordChanged,
+  ) {
+    String localPassword = "";
+    return AlertDialog(
+      title: const Text("Keysmith"),
+      content: KeysmithWidget(
+          onPasswordChanged: (password) => localPassword = password),
+      actions: [
+        TextButton(
+            onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+            child: const Text("Dismiss")),
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    Theme.of(context).colorScheme.primaryContainer),
+            onPressed: () {
+              onPasswordChanged(localPassword);
+              Navigator.of(context, rootNavigator: true).pop();
+            },
+            child: const Text("Accept")),
+      ],
+    );
   }
 }

@@ -28,7 +28,7 @@ class AddPasswordStateModel extends AddPasswordState {
       'siteImageUrl': siteImageUrl,
       'validEmail': validEmail,
       'validUrl': validUrl,
-      'strength': strength,
+      'strength': strength.toString(),
       'errors': errors
           .map<String, String>((key, value) => MapEntry(key.toString(), value)),
     };
@@ -45,7 +45,7 @@ class AddPasswordStateModel extends AddPasswordState {
       siteImageUrl: map['siteImageUrl'] as String,
       validEmail: map['validEmail'] as bool,
       validUrl: map['validUrl'] as bool,
-      strength: map['strength'] as double,
+      strength: double.parse(map['strength']),
       errors: (map['errors'] as Map).map((key, value) => MapEntry(
           AddPasswordError.getAddPasswordErrorFromString(key) ??
               AddPasswordError.other,

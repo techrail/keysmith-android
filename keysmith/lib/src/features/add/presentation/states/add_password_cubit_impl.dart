@@ -1,25 +1,21 @@
 import 'package:injectable/injectable.dart';
 import 'package:keysmith/src/core/utils/error/failures.dart';
 import 'package:keysmith/src/core/utils/state/app_state.dart';
+import 'package:keysmith/src/core/utils/validator/password_strength_validator.dart';
 import 'package:keysmith/src/features/add/domain/usecases/add_usecases.dart';
 import 'package:keysmith/src/features/add/presentation/states/add_password_cubit.dart';
 import 'package:keysmith/src/features/add/presentation/states/add_password_state.dart';
 import 'package:keysmith/src/features/add/presentation/states/errors.dart';
 import 'package:keysmith/src/features/add/presentation/states/state_model.dart';
 
-//TODO: create repository abstractions and write tests.
-
 @Singleton(as: AddPasswordCubit)
 class AddPasswordCubitImpl extends AddPasswordCubit {
   //TODO: usecases for email validation
   final AddPasswordUsecase _addPasswordUseCase;
-  final PasswordStrengthUsecase _passwordStrengthUsecase;
 
   AddPasswordCubitImpl({
     required AddPasswordUsecase addPasswordUseCase,
-    required PasswordStrengthUsecase passwordStrengthUsecase,
-  })  : _addPasswordUseCase = addPasswordUseCase,
-        _passwordStrengthUsecase = passwordStrengthUsecase;
+  }) : _addPasswordUseCase = addPasswordUseCase;
 
   @override
   Future<void> saveSecret() async {
@@ -54,9 +50,7 @@ class AddPasswordCubitImpl extends AddPasswordCubit {
 
   @override
   void updatePasswordString(String password) {
-    final passwordStrength =
-        _passwordStrengthUsecase(PasswordStrengthParams(password: password));
-
+    final double passwordStrength = estimatePasswordStrength(password);
     emit(state.copyWith(password: password, strength: passwordStrength));
   }
 
