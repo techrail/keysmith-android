@@ -1,0 +1,63 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "2:6547438553722868163",
+      "lastPropertyId": "5:8872541514302923873",
+      "name": "SecretsDTO",
+      "properties": [
+        {
+          "id": "1:4006209659351168875",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:9033878377737889133",
+          "name": "secretType",
+          "type": 9
+        },
+        {
+          "id": "3:2871767169339378926",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "4:7310811044181557528",
+          "name": "modifiedAt",
+          "type": 10
+        },
+        {
+          "id": "5:8872541514302923873",
+          "name": "content",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:6547438553722868163",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [
+    8704140309286713244
+  ],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    7883627629428211506,
+    8485094960723839073,
+    603726306708849704,
+    2855135165893480894,
+    2180263731674156849,
+    9086830017222490181,
+    5793042775041285037,
+    5808013804863688965
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}
