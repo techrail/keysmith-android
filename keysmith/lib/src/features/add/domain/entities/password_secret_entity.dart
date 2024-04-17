@@ -1,13 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:equatable/equatable.dart';
-import 'package:keysmith/src/core/utils/usecase/copyable.dart';
+part of 'package:keysmith/src/core/common/entities/secrets_entity.dart';
 
-class PasswordSecretEntity extends Equatable
-    implements Copyable<PasswordSecretEntity> {
-  final String id;
-
+class PasswordSecretEntity extends SecretsEntity {
   ///Title of the secret.
-  final String title;
+  final String? title;
 
   ///The email ID for which the password is created for.
   ///
@@ -19,20 +14,18 @@ class PasswordSecretEntity extends Equatable
 
   ///Url of the website for which the secret is created for.
   ///
-  final String website;
-
-  ///Additional information which may be required with this
-  ///secret.
-  ///
-  final Map<String, String> additionalInfo;
+  final String? website;
 
   const PasswordSecretEntity({
-    required this.id,
+    super.id,
+    required super.createdAt,
+    super.modifiedAt,
+    super.additionalInfo,
+    super.type = SecretType.password,
     required this.title,
     required this.email,
     required this.password,
     required this.website,
-    required this.additionalInfo,
   });
 
   @override
@@ -41,40 +34,52 @@ class PasswordSecretEntity extends Equatable
   @override
   PasswordSecretEntity copy() => PasswordSecretEntity(
         id: id,
+        type: SecretType.password,
         title: title,
         email: email,
         password: password,
         website: website,
+        createdAt: createdAt,
+        modifiedAt: modifiedAt,
         additionalInfo: additionalInfo,
       );
 
   @override
   PasswordSecretEntity copyWith({
-    String? id,
+    int? id,
+    SecretType? type,
     String? title,
     String? email,
     String? password,
     String? website,
+    DateTime? createdAt,
+    DateTime? modifiedAt,
     Map<String, String>? additionalInfo,
   }) {
     return PasswordSecretEntity(
       id: id ?? this.id,
+      type: type ?? this.type,
       title: title ?? this.title,
       email: email ?? this.email,
       password: password ?? this.password,
       website: website ?? this.website,
+      createdAt: createdAt ?? this.createdAt,
+      modifiedAt: modifiedAt ?? this.modifiedAt,
       additionalInfo: additionalInfo ?? this.additionalInfo,
     );
   }
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
+      type,
       title,
       email,
       password,
       website,
+      createdAt,
+      modifiedAt,
       additionalInfo,
     ];
   }
