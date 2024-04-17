@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:keysmith/src/core/common/widgets/keysmith/keysmith_state.dart';
+import 'package:keysmith/src/core/utils/constants/password_characters.dart';
 import 'package:keysmith/src/core/utils/state/app_state.dart';
 import 'package:keysmith/src/core/utils/validator/password_strength_validator.dart';
-import 'package:keysmith/src/features/add/utils/constants/constants.dart';
 import 'package:keysmith/src/features/add/utils/constants/password_strength_criteria.dart';
 
 class KeysmithCubit extends Cubit<KeysmithState> {
