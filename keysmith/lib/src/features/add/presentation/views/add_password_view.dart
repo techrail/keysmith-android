@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -56,7 +57,7 @@ class AddPasswordView extends HookWidget {
                 emailFieldController.clear();
                 passwordFieldController.clear();
                 websiteFieldController.clear();
-                //TODO: navigate to secrets list view once the data is successfully saved.
+                AutoRouter.of(context).pop();
                 break;
               case AppState.error:
                 // TODO: Handle this case.
