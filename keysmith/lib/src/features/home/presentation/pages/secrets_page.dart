@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +23,12 @@ class SecretsPage extends StatelessWidget {
             onPressed: () => context.router.push(const AddRoute()),
             icon: const Icon(Icons.key),
           ),
-          ActionButton(
-            onPressed: () => log("note pressed"),
-            icon: const Icon(Icons.note_outlined),
-          ),
+          //TODO: un-comment when notes module is implemented.
+
+          // ActionButton(
+          //   onPressed: () => log("note pressed"),
+          //   icon: const Icon(Icons.note_outlined),
+          // ),
           if (kDebugMode)
             ActionButton(
               icon: const Icon(Icons.computer_sharp),
