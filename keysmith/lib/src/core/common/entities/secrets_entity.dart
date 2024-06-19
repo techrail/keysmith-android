@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:keysmith/src/core/utils/constants/secret_type.dart';
 import 'package:keysmith/src/core/utils/usecase/copyable.dart';

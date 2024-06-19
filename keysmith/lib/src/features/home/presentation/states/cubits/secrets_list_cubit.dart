@@ -30,10 +30,7 @@ class SecretsListCubit extends Cubit<SecretsListState> {
         _streamAllSecretsUsecase = streamAllSecretsUsecase,
         _deleteSecretsUsecase = deleteSecretsUsecase,
         super(const SecretsListState()) {
-    //TODO: temporary, replace this with the stream.
-    getAllSecrets();
-    //stream is tested
-    // _startSecretsStream();
+    _startSecretsStream();
   }
 
   Future<void> getAllSecrets() async {

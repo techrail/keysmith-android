@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -50,8 +52,35 @@ class LocalSecretListDatasourceImpl implements SecretListDatasoruce {
   }
 
   @override
-  SecretsListEntityStreamResult streamAllSecrets() {
-    // TODO: implement streamAllSecrets
-    throw UnimplementedError();
+  SecretsListEntityStreamResult streamAllSecrets() async {
+    final StreamTransformer<List<Map<String, dynamic>>, List<SecretsEntity>>
+        streamTransformer = StreamTransformer.fromHandlers(
+      handleData: (data, sink) {
+        final List<SecretsEntity> secretEntites = [];
+        for (var map in data) {
+          final secretType = SecretType.getSecretFromMap(map);
+          if (secretType != null) {
+            late SecretsEntity secret;
+            switch (secretType) {
+              case SecretType.password:
+                secret = PasswordSecretModel.fromMap(map);
+                break;
+              case SecretType.note:
+                throw (UnimplementedError());
+            }
+            secretEntites.add(secret);
+          }
+        }
+
+        sink.add(secretEntites);
+      },
+      handleError: (error, stackTrace, sink) =>
+          sink.addError('local DB error: $error'),
+      handleDone: (sink) => sink.close(),
+    );
+
+    final stream = await _db.streamAllSecrets();
+
+    return Future.value(right(streamTransformer.bind(stream)));
   }
 }

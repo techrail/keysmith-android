@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -6,6 +7,7 @@ import 'package:keysmith/objectbox.g.dart';
 import 'package:keysmith/src/core/common/services/database/dto/secrets_dto.dart';
 import 'package:keysmith/src/core/common/services/database/model/secrets_dto_model.dart';
 import 'package:keysmith/src/core/common/services/database/service/local_db_service.dart';
+import 'package:objectbox/objectbox.dart' as objb;
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
@@ -43,48 +45,68 @@ class ObjectBoxService implements LocalSecretsDBService {
     }
   }
 
+  //TODO: TEST
   @override
   Future<Map<String, dynamic>> readSecret({required String id}) {
-    // TODO: implement readSecret
-    throw UnimplementedError();
+    if (int.tryParse(id) == null) {
+      throw const FileSystemException("Invalid ID for ObjectBox object.");
+    }
+
+    final dbo = _passwordsBox
+        .query(SecretsDTO_.id.equals(int.parse(id)))
+        .build()
+        .find()
+        .first;
+
+    final result = SecretDTOModel.fromDTO(dbo);
+
+    return Future.value(result.toMap());
   }
 
   @override
   Future<List<Map<String, dynamic>>> readAllSecrets() async {
     final results = await _passwordsBox.getAllAsync();
-    //TODO: decode this data into a list of map, implement SecretsDTOModel
-    log(results.toString());
-    //TODO: return the decoded data
     return results
-        .map(
-          (dto) => SecretDTOModel(
-            id: dto.id,
-            secretType: dto.secretType,
-            createdAt: dto.createdAt,
-            modifiedAt: dto.modifiedAt,
-            content: dto.content,
-          ).toMap(),
-        )
+        .map((dboSecret) => SecretDTOModel.fromDTO(dboSecret).toMap())
         .toList();
-
-    // throw UnimplementedError();
   }
 
   @override
-  Future<Stream<Map<String, dynamic>>> streamAllSecrets() {
-    // TODO: implement streamAllSecrets
-    throw UnimplementedError();
+  Future<Stream<List<Map<String, dynamic>>>> streamAllSecrets() {
+    final query = _passwordsBox
+        .query()
+        .order(SecretsDTO_.createdAt, flags: objb.Order.descending);
+
+    final dboStream =
+        query.watch(triggerImmediately: true).map((query) => query.find());
+
+    //Transform the database object (DBO) to a map.
+    final StreamTransformer<List<SecretsDTO>, List<Map<String, dynamic>>>
+        streamTransformer = StreamTransformer.fromHandlers(
+      handleData: (data, sink) {
+        final List<Map<String, dynamic>> secretsMap = data
+            .map((dboSecret) => SecretDTOModel.fromDTO(dboSecret).toMap())
+            .toList();
+        sink.add(secretsMap);
+      },
+      handleError: (error, stackTrace, sink) =>
+          sink.addError('DB stream error: $error'),
+      handleDone: (sink) => sink.close(),
+    );
+
+    return Future.value(streamTransformer.bind(dboStream));
   }
 
+  //TODO: TEST
   @override
-  void deleteSecret({required Map<String, dynamic> secret}) {
-    // TODO: implement deleteSecret
-    throw UnimplementedError();
+  Future<void> deleteSecret({required Map<String, dynamic> secret}) async {
+    final dto = SecretDTOModel.fromMap(secret);
+    await _passwordsBox.removeAsync(dto.id);
   }
 
+  //TODO: TEST
   @override
-  void deleteSecrets({required Map<String, dynamic> secrets}) {
-    // TODO: implement deleteSecrets
-    throw UnimplementedError();
+  Future<void> deleteSecrets({required Map<String, dynamic> secrets}) async {
+    await _passwordsBox.removeAllAsync();
   }
 }

@@ -46,6 +46,14 @@ class SecretDTOModel extends SecretsDTO {
     // };
   }
 
+  factory SecretDTOModel.fromDTO(SecretsDTO dto) => SecretDTOModel(
+        id: dto.id,
+        secretType: dto.secretType,
+        createdAt: dto.createdAt,
+        modifiedAt: dto.modifiedAt,
+        content: dto.content,
+      );
+
   static SecretsDTO fromMap(Map<String, dynamic> map) {
     final SecretType? secretType = SecretType.getSecretFromMap(map);
 

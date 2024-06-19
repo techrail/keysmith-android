@@ -20,14 +20,14 @@ abstract interface class LocalSecretsDBService {
   ///Creates a stream which is updated when secrets in
   ///database are modified.
   ///
-  Future<Stream<Map<String, dynamic>>> streamAllSecrets();
+  Future<Stream<List<Map<String, dynamic>>>> streamAllSecrets();
 
   ///Deletes a secret, throws a [FileSystemException]
   ///if deletion isn't successful.
   ///
-  void deleteSecret({required Map<String, dynamic> secret});
+  Future<void> deleteSecret({required Map<String, dynamic> secret});
 
   ///Deletes secrets in batches, throws a [FileSystemException] if deletion isn't successful.
   ///
-  void deleteSecrets({required Map<String, dynamic> secrets});
+  Future<void> deleteSecrets({required Map<String, dynamic> secrets});
 }
