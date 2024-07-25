@@ -80,14 +80,18 @@ class SecretsListView extends StatelessWidget {
 
 Widget _buildPasswordTileContent(BuildContext context,
         {required String password, String? website}) =>
-    Column(children: [
-      SecretsListContentRow(
-        icon: Icons.key,
-        content: password,
-      ),
-      if (website != null)
+    Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
         SecretsListContentRow(
-          icon: Icons.satellite_alt_rounded,
-          content: website,
+          obscure: true,
+          icon: Icons.key,
+          content: password,
         ),
-    ]);
+        if (website != null)
+          SecretsListContentRow(
+            icon: Icons.satellite_alt_rounded,
+            content: website,
+          ),
+      ],
+    );
